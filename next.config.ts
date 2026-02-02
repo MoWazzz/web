@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {
+    // Ensure turbopack/root is the project folder so Next infers config correctly
+    root: './',
+  },
 };
 
 export default nextConfig;

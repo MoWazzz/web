@@ -5,6 +5,11 @@
   --foreground: #171717;
 }
 
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,15 +17,21 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Force common Tailwind utilities to use CSS variables when html.dark is set
+   (works around environments where Tailwind dark variants are media-based) */
+html.dark .bg-white { background-color: var(--background) !important; }
+html.dark .bg-zinc-50 { background-color: var(--background) !important; }
+html.dark .bg-foreground { background-color: var(--foreground) !important; }
+html.dark .bg-gray-200 { background-color: color-mix(in oklab, var(--foreground) 8%, transparent) !important; }
+html.dark .text-black { color: var(--foreground) !important; }
+html.dark .text-zinc-600 { color: var(--foreground) !important; }
+html.dark .text-zinc-400 { color: color-mix(in oklab, var(--foreground) 70%, transparent) !important; }
+html.dark .text-zinc-50 { color: var(--foreground) !important; }
+html.dark .dark\:invert { filter: invert(100%) !important; }
